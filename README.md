@@ -1,0 +1,108 @@
+# Aegis
+
+Aegis is a proxy client.
+
+<details>
+
+Features:
+
+- Various proxy protocols
+- Group and subscription
+- Routing
+- Proxy chain
+
+Some supported protocols:
+
+- Shadowsocks (with SIP003 plugin support)
+- Shadowsocks 2022 (with SIP003 plugin support)
+- Trojan
+- Hysteria 2
+- AnyTLS
+- mieru
+- NaïveProxy (as a standalone plugin)
+- TUIC
+- Juicity
+- VMess (with various optional sub-protocols)
+- VLESS (with various optional sub-protocols)
+- WireGuard (TCP and UDP only)
+- TrustTunnel (no ICMP echo support)
+- SSH proxy ("dynamic port forwarding")
+- HTTP CONNECT tunnel (HTTP/1.1, HTTP/1.1 with TLS, HTTP/2 and HTTP/3)
+- SOCKS4, SOCKS4A and SOCKS5
+
+</details>
+
+It is a fork of the archived Android proxy client SagerNet and uses a custom overhauled fork of V2Ray.
+
+## Download
+
+- Aegis
+
+  [Download from GitHub releases](https://github.com/AbikusSudo/Aegis/releases)
+  Maybe RuStore will be here
+
+- NaïveProxy Plugin
+
+  [Download from GitHub releases](https://github.com/klzgrad/naiveproxy/releases)
+
+  It is distributed and signed by the upstream author.
+
+Starting in September 2026, Google will [block apps from "sideloading"](https://developer.android.com/developer-verification) on [certified Android devices](https://www.android.com/certified/partners/). If you are a user who values digital freedom, we need your voice to [express opposition](https://keepandroidopen.org/). Your support will not only help save this app, but also help defend software freedom and open distribution.
+
+## License
+
+    (TM) 2026 AbikusSudo
+    Copyright (C) 2021 by nekohasekai <contact-sagernet@sekai.icu>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+## Notice
+
+Aegis is licensed under the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. However, Aegis optionally incorporates code that is covered by the GNU General Public License as published by the Free Software Foundation, version 3. If `github.com/dyhkwong/libsagernetcore` is compiled with `with_clash` tag, the GNU General Public License as published by the Free Software Foundation, version 3, applies to all of Aegis.
+
+## Report issues
+
+Please report issues [here](https://github.com/AbikusSudo/Aegis/issues). Do not report issues to upstream because the core used is heavily modified.
+
+- For crashes, log file using "debug" log level is required. Log files may contain secret keys used to connect to servers. Please remove potential sensitive information or encrypt with GPG before posting them publicly.
+- For memory leak and high system resource usage, pprof profile is required. Long press "About" - "Version" to enable pprof HTTP server settings and kill and restart the app to take effect.
+- Encrypt with [this GPG public key](https://github.com/AbikusSudo.gpg) if the issue contains sensitive information or you are reporting a vulnerability.
+
+## Explanation of terms
+
+[Aegis wiki](https://github.com/AbikusSudo/Aegis/wiki). It contains some subjective comments. Viewer discretion is advised.
+
+## Build from source
+
+The following procedures are only applicable to a typical AMD64 Linux distros. It is possible to build on other platforms but the procedures may vary.
+- Install and configure JDK 21, Go 1.25 and Go Mobile.
+- Install and configure Android SDK Platform 36, Android SDK Build-Tools 36.1.0, Android SDK Platform-Tools and Android NDK r29 through Android Studio or Android SDK Command-line Tools.
+- Replace `release.keystore` with your own. It can be generated with Java `keytool`.
+- Create a new `local.properties` file if it does not exist. Append the following lines to `local.properties`.
+```
+    KEYSTORE_PASS=your_keystore_pass
+    ALIAS_NAME=your_alias_name
+    ALIAS_PASS=your_alias_pass
+```
+- Build libsagernetcore: `./run lib core` or `./library/core/build.sh`
+- Download assets: `./gradlew :app:downloadAssets`, or update assets to the latest version: `./gradlew :app:updateAssets`
+- Build Aegis: `./gradlew :app:assembleOssRelease`
+- APK files are located in `./app/build/outputs/apk/oss/release`
+
+## Acknowledgment
+
+- [Shadowsocks](https://github.com/shadowsocks/shadowsocks-android)
+- [SagerNet](https://github.com/SagerNet/SagerNet)
+- [husi](https://github.com/xchacha20-poly1305/husi)
+- Other forks of SagerNet
